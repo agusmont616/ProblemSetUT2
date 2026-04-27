@@ -57,18 +57,6 @@ public class Elemento<T> implements TDAElemento<T> {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        Elemento<T> actual = this;
-
-        while (actual!=null ) {
-            sb.append(actual.getDato());
-        }
-
-        return sb.toString();
-    }
-
     public boolean insertar(Comparable<T> nuevoDato){
         Elemento<T> actual=this;
         T datoNuevo = (T) nuevoDato;
@@ -192,7 +180,7 @@ public class Elemento<T> implements TDAElemento<T> {
         if (actual.hijoIzq!=null) {
             actual.hijoIzq.inOrder(consumidor);
         } 
-        consumidor.accept(this);
+        consumidor.accept(actual);;
 
         if (actual.hijoDer!=null) {
             actual.hijoDer.inOrder(consumidor);

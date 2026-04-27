@@ -2,19 +2,16 @@ package ucu.edu.aed.tda;
 
 import java.util.function.Consumer;
 
-public class ArbolBinario<T> implements TDAArbolBinario {
+public class ArbolBinario<T> implements TDAArbolBinario<T> {
 
     private TDAElemento<T> raiz;
-    private int cantidadNodos;
 
     public ArbolBinario() {
         this.raiz = null;
-        this.cantidadNodos = 0;
-
     }
 
     @Override
-    public T buscar(Comparable predicate) {
+    public T buscar(Comparable<T> predicate) {
 
         TDAElemento<T> nodoActual = raiz;
 
@@ -31,7 +28,7 @@ public class ArbolBinario<T> implements TDAArbolBinario {
     }
 
     @Override
-    public boolean eliminar(Comparable criterioBusqueda) {
+    public boolean eliminar(Comparable<T> criterioBusqueda) {
         
         if (raiz == null) {
             return false;
@@ -45,28 +42,33 @@ public class ArbolBinario<T> implements TDAArbolBinario {
     }
 
     @Override
-    public boolean insertar(Comparable dato) {
-            if (raiz == null) {
-                raiz = new Elemento<>(dato);
-                return true;
-            } else {
+    public boolean insertar(Comparable<T> dato) {
+            if (dato==null) {
+                return false;
+            }else{}
+            
                 return raiz.insertar(dato);
-            }
     }
 
     @Override
-    public void inOrder(Consumer consumer) {
-        raiz.inOrder(consumer);
+    public void inOrder(Consumer<T> consumer) {
+        if (raiz != null){
+        raiz.inOrder(nodo -> consumer.accept(nodo.getDato()));
+    }
     }
 
     @Override
-    public void preOrder(Consumer consumer) {
-        raiz.preOrder(consumer);
+    public void preOrder(Consumer<T> consumer) {
+        if (raiz != null){
+        raiz.preOrder(nodo -> consumer.accept(nodo.getDato()));
+        }
     }
 
     @Override
-    public void postOrder(Consumer consumer) {
-        raiz.postOrder(consumer);
+    public void postOrder(Consumer<T> consumer) {
+        if (raiz != null){
+        raiz.postOrder(nodo -> consumer.accept(nodo.getDato()));
+    }
     }
 
     @Override
@@ -95,5 +97,4 @@ public class ArbolBinario<T> implements TDAArbolBinario {
     public int calcularAltura() {
         return raiz.altura();
     }
-    
 }
