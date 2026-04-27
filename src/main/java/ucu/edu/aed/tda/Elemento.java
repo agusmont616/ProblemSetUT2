@@ -57,6 +57,18 @@ public class Elemento<T> implements TDAElemento<T> {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Elemento<T> actual = this;
+
+        while (actual!=null ) {
+            sb.append(actual.getDato());
+        }
+
+        return sb.toString();
+    }
+
     public boolean insertar(Comparable<T> nuevoDato){
         Elemento<T> actual=this;
         T datoNuevo = (T) nuevoDato;
@@ -176,16 +188,41 @@ public class Elemento<T> implements TDAElemento<T> {
     }
 
     public void inOrder(Consumer<TDAElemento<T>> consumidor){
-        
+        Elemento<T> actual=this;
+        if (actual.hijoIzq!=null) {
+            actual.hijoIzq.inOrder(consumidor);
+        } 
+        consumidor.accept(this);
+
+        if (actual.hijoDer!=null) {
+            actual.hijoDer.inOrder(consumidor);
+        }
     }    
     
     public void preOrder(Consumer<TDAElemento<T>> consumidor){
+        Elemento<T> actual=this;
+        consumidor.accept(this);
 
+        if (actual.hijoIzq!=null) {
+            actual.hijoIzq.preOrder(consumidor);
+        } 
+
+        if (actual.hijoDer!=null) {
+            actual.hijoDer.preOrder(consumidor);
+        }
     }
 
     public void postOrder(Consumer<TDAElemento<T>> consumidor){
+        Elemento<T> actual=this;
+        if (actual.hijoIzq!=null) {
+            actual.hijoIzq.postOrder(consumidor);
+        } 
+
+        if (actual.hijoDer!=null) {
+            actual.hijoDer.postOrder(consumidor);
+        }
+        
+        consumidor.accept(this);
 
     }
-
-
 }
