@@ -1,7 +1,7 @@
 package ucu.edu.aed.tda;
 
 import java.util.function.Consumer;
-import java.util.function.Predicate;
+
 
 /**
  * Modela un nodo del árbol binario.
