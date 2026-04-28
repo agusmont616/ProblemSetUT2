@@ -10,6 +10,10 @@ public class ArbolBinario<T> implements TDAArbolBinario<T> {
         this.raiz = null;
     }
 
+    protected void setRaiz(TDAElemento<T> nuevaRaiz) {
+        this.raiz = nuevaRaiz;
+    }
+
     @Override
     public T buscar(Comparable<T> predicate) {
 
