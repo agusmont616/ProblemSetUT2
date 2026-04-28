@@ -111,7 +111,7 @@ public class ArbolAVL<T> extends ArbolBinario<T> {
             return nodoActual;
         }
 
-        @Override
+        @Override // compara la cantidad de nodos que hay previo a la insersión con la cantidad que hay después
         public boolean insertar(Comparable datoNuevo) {
             int nodosAntes = esVacio() ? 0 : obtenerRaiz().cantidadNodos();
             TDAElemento<T> nuevaRaiz = insertarBalanceado(obtenerRaiz(), datoNuevo);
