@@ -96,4 +96,10 @@ public class ArbolBinario<T> implements TDAArbolBinario {
         return raiz.altura();
     }
     
+    public int tamaño() {
+        if (raiz == null) {
+            return 0;
+        }
+        return raiz.tamaño();
+    }
 }
