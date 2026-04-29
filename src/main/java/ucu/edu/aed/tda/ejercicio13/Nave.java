@@ -1,4 +1,6 @@
-public class Nave {
+package ucu.edu.aed.tda.ejercicio13;
+
+public class Nave implements Comparable<Nave> {
     private int codigo;
     private String clase;
     private int combustibleRestante;
@@ -26,7 +28,7 @@ public class Nave {
     // toString y compareTo
 
     @Override
-    public string toString() {
+    public String toString() {
         return "[ " + codigo + "," + clase + "," + combustibleRestante + " ]\n";
     }
 

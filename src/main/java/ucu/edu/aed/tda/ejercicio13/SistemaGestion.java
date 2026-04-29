@@ -1,15 +1,16 @@
+package ucu.edu.aed.tda.ejercicio13;
+
 import ucu.edu.aed.tda.ArbolAVL;
-import ucu.edu.aed.tda.ejercicio13.Lista;
 
 public class SistemaGestion {
-    private ArbolAVL<T> registro;
+    private ArbolAVL<Nave> registro;
 
     public SistemaGestion() {
         this.registro = new ArbolAVL<Nave>();
     }
 
     public void agregarNave(Nave nave) { 
-        registro.insertar(nave); // usa la implementación del arbolAVL
+        registro.insertar((Comparable<Nave>) nave); // usa la implementación del arbolAVL
     }
 
     public Lista<Integer> retornarExploradoras() {
@@ -24,14 +25,14 @@ public class SistemaGestion {
     }
 
     public float calcularPromedioCombustible() {
-        float suma = 0;
+        final int[] suma = new int[] { 0 };
         float totalNaves = (float) registro.cantidadNodos();
         
         registro.inOrder(nave -> {  //uso funcion lamda
-            suma += nave.getCombustibleRestante();
+            suma[0] += nave.getCombustibleRestante();
         });
 
-        return suma / totalNaves;
+        return suma[0] / totalNaves;
 
     }
 }
