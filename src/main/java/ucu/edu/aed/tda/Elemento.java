@@ -57,18 +57,6 @@ public class Elemento<T> implements TDAElemento<T> {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        Elemento<T> actual = this;
-
-        while (actual!=null ) {
-            sb.append(actual.getDato());
-        }
-
-        return sb.toString();
-    }
-
     public boolean insertar(Comparable<T> nuevoDato){
         Elemento<T> actual=this;
         T datoNuevo = (T) nuevoDato;
@@ -198,8 +186,39 @@ public class Elemento<T> implements TDAElemento<T> {
         }
     }
 
-    public TDAElemento<T> eliminar(Comparable<T> criterioBusqueda){
-        return null;
+    public TDAElemento<T> eliminar(Comparable<T> criterio){
+          int comparar = criterio.compareTo(this.dato);
+        TDAElemento<T> actual=this;
+        if (comparar<0){//Buscamos el nodo a borrar
+            if (actual.getHijoIzquierdo()!=null){
+                return actual.getHijoIzquierdo().eliminar(criterio);
+            }
+            return null;
+        }else if (comparar>0){
+            if (actual.getHijoDerecho()!=null){
+                return actual.getHijoDerecho().eliminar(criterio);
+            }
+            return null;
+        }else{//Lo encontramos
+            if (actual.esHoja()) {
+                actual=null;
+            }else{
+                TDAElemento<T> sustituto=actual;
+                if (sustituto.getHijoDerecho()!=null) {//buscar en el nodo que encontramos el sustituo
+                    sustituto=sustituto.getHijoDerecho();
+                    while (sustituto.getHijoIzquierdo()!=null) {
+                        sustituto=sustituto.getHijoIzquierdo();
+                    }
+                }else{
+                    if (sustituto.getHijoIzquierdo()!=null) {
+                        sustituto=sustituto.getHijoIzquierdo();              
+                    }
+                }
+                actual.setDato(sustituto.getDato());
+                sustituto.eliminar((Comparable<T>)sustituto.getDato());
+            }            
+            return this;
+        }
     }
 
     public TDALista<Elemento<T>> completos() {
@@ -270,7 +289,7 @@ public class Elemento<T> implements TDAElemento<T> {
         if (actual.hijoIzq!=null) {
             actual.hijoIzq.inOrder(consumidor);
         } 
-        consumidor.accept(this);
+        consumidor.accept(actual);;
 
         if (actual.hijoDer!=null) {
             actual.hijoDer.inOrder(consumidor);
