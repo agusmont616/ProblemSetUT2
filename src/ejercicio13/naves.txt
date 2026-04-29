@@ -1,0 +1,10 @@
+10,Explorador,0
+20,Destructor,90
+30,Médica,100
+40,Explorador,50
+50,Carguero,20
+60,Destructor,28
+70,Explorador,14
+80,Médica,7
+90,Carguero,23
+100,Explorador,26
