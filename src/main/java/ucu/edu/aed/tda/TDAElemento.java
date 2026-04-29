@@ -120,4 +120,20 @@ public interface TDAElemento <T>{
      * si no se encuentra, retorna -1
      */
     int obtenerNivel(Comparable<T> criterioBusqueda);
+
+    /**
+     * retorna el tamaño del subárbol que comienza en este nodo
+     */
+    int tamaño();
+
+    /**
+     * retorna una lista con los nodos completos del subárbol que comienza en este nodo
+     */
+    TDALista<Elemento<T>> completos();
+
+    /**
+     * retorna una lista con los nodos del subárbol que comienza en este nodo que se encuentran en el nivel indicado
+     * si no hay nodos en ese nivel, retorna una lista vacía
+     */
+    TDALista<Elemento<T>> enNivel(int nivel);
 }

@@ -140,6 +140,21 @@ public class Elemento<T> implements TDAElemento<T> {
         return 1+Math.max(alturaDer,alturaIzq);
     }
 
+    public int tamaño() {
+        Elemento<T> actual = this;
+        int tamañoIzq = 0;
+        int tamañoDer = 0;
+
+        if (actual.getHijoIzquierdo() != null) {
+            tamañoIzq = actual.getHijoIzquierdo().tamaño();
+        }
+
+        if (actual.getHijoDerecho() != null) {
+            tamañoDer = actual.getHijoDerecho().tamaño();
+        }
+        return 1 + tamañoIzq + tamañoDer;
+}
+
     public int obtenerNivel(Comparable<T> criterioBusqueda){
         Elemento<T> actual=this;
         if(criterioBusqueda.compareTo(actual.dato)==0){
@@ -205,6 +220,69 @@ public class Elemento<T> implements TDAElemento<T> {
             return this;
         }
     }
+
+    public TDALista<Elemento<T>> completos() {
+        Elemento<T> actual = this;
+        Lista<Elemento<T>> lista = new Lista<>();
+
+        // si el nodo actual tiene ambos hijos, lo agregamos
+        if (actual.getHijoIzquierdo() != null && actual.getHijoDerecho() != null) {
+            lista.agregar(actual);
+        }
+
+        // recorrer subárbol izquierdo
+        if (actual.getHijoIzquierdo() != null) {
+            TDALista<Elemento<T>> listaIzq = actual.getHijoIzquierdo().completos();
+
+            for (int i = 0; i < listaIzq.tamanio(); i++) {
+                lista.agregar(listaIzq.obtener(i));
+            }
+        }
+
+        // recorrer subárbol derecho
+        if (actual.getHijoDerecho() != null) {
+            TDALista<Elemento<T>> listaDer = actual.getHijoDerecho().completos();
+
+            for (int i = 0; i < listaDer.tamanio(); i++) {
+                lista.agregar(listaDer.obtener(i));
+            }
+        }
+
+        return lista;
+    }
+    
+    public TDALista<Elemento<T>> enNivel(int nivel) {
+        Elemento<T> actual = this;
+        Lista<Elemento<T>> lista = new Lista<>();
+
+        // Caso base: si el nivel es 1, agregamos el nodo actual a la lista
+        if (nivel == 1) {
+            lista.agregar(actual);
+            return lista;
+        }
+        
+        // Recorrer subárbol izquierdo
+        if (actual.getHijoIzquierdo() != null) {
+            TDALista<Elemento<T>> listaIzq =
+                actual.getHijoIzquierdo().enNivel(nivel - 1);
+
+            for (int i = 0; i < listaIzq.tamanio(); i++) {
+                lista.agregar(listaIzq.obtener(i));
+            }
+        }
+    
+        // Recorrer subárbol derecho
+        if (actual.getHijoDerecho() != null) {
+            TDALista<Elemento<T>> listaDer =
+                actual.getHijoDerecho().enNivel(nivel - 1);
+
+            for (int i = 0; i < listaDer.tamanio(); i++) {
+                lista.agregar(listaDer.obtener(i));
+            }
+        }
+        return lista;
+    }
+
 
     public void inOrder(Consumer<TDAElemento<T>> consumidor){
         Elemento<T> actual=this;
