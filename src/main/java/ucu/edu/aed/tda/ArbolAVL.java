@@ -68,7 +68,7 @@ public class ArbolAVL<T> extends ArbolBinario<T> {
 
             // caso LL
 
-            boolean desbalanceLL = factorBalance < 1 && 
+            boolean desbalanceLL = factorBalance > 1 && 
             datoNuevo.compareTo(nodoActual.getHijoIzquierdo().getDato()) < 0;
 
             if (desbalanceLL) {
@@ -77,7 +77,7 @@ public class ArbolAVL<T> extends ArbolBinario<T> {
 
             // caso RR
 
-            boolean desbalanceRR = factorBalance > 1 &&
+            boolean desbalanceRR = factorBalance < -1 &&
             datoNuevo.compareTo(nodoActual.getHijoDerecho().getDato()) > 0;
 
             if (desbalanceRR) {
@@ -175,20 +175,20 @@ public class ArbolAVL<T> extends ArbolBinario<T> {
             int factorBalance = calcularFactorBalance(nodoActual);
 
             // caso LL
-            if (factorBalance > 1 && calcularFactorBalance(nodoActual.getHijoIzquierdo()) >= 0) {
+            if (factorBalance > 1 && calcularFactorBalance(nodoActual.getHijoIzquierdo()) < 0) {
                 return rotarDerecha(nodoActual);
             }
             // caso RR
-            if (factorBalance < -1 && calcularFactorBalance(nodoActual.getHijoDerecho()) >= 0) {
+            if (factorBalance < -1 && calcularFactorBalance(nodoActual.getHijoDerecho()) > 0) {
                 return rotarIzquierda(nodoActual);
             }
             // caso LR
-            if (factorBalance > 1 && calcularFactorBalance(nodoActual.getHijoIzquierdo()) < 0) {
+            if (factorBalance > 1 && calcularFactorBalance(nodoActual.getHijoIzquierdo()) > 0) {
                 nodoActual.setHijoDerecho(rotarIzquierda(nodoActual.getHijoIzquierdo()));
                 return rotarDerecha(nodoActual);
             }
             // caso RL
-            if (factorBalance < -1 && calcularFactorBalance(nodoActual.getHijoDerecho()) >=0) {
+            if (factorBalance < -1 && calcularFactorBalance(nodoActual.getHijoDerecho()) < 0) {
                 nodoActual.setHijoDerecho(rotarDerecha(nodoActual.getHijoDerecho()));
                 return rotarIzquierda(nodoActual);
             }
