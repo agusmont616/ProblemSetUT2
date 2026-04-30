@@ -1,6 +1,7 @@
 package ucu.edu.aed.tda.ejercicio13;
 
 import ucu.edu.aed.tda.ArbolAVL;
+import ucu.edu.aed.tda.Lista;
 
 public class SistemaGestion {
     private ArbolAVL<Nave> registro;
